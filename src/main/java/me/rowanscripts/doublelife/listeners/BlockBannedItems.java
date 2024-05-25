@@ -59,7 +59,7 @@ public class BlockBannedItems implements Listener {
             itemStack.setAmount(0);
             for (HumanEntity viewer : event.getClickedInventory().getViewers()) {
                 Player cheater = (Player) viewer;
-                cheater.sendMessage(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Зачарованные золотые яблоки запрещены.");
+                cheater.sendMessage(ChatColor.RED + "[DoubleLife] " + ChatColor.RESET + "Зачарованные золотые яблоки запрещены.");
             }
         }
     }
@@ -103,7 +103,7 @@ public class BlockBannedItems implements Listener {
                 itemStack.setType(Material.GLASS_BOTTLE);
                 for (HumanEntity viewer : event.getClickedInventory().getViewers()) {
                     Player cheater = (Player) viewer;
-                    cheater.sendMessage(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Это зелье запрещено.");
+                    cheater.sendMessage(ChatColor.RED + "[DoubleLife] " + ChatColor.RESET + "Это зелье запрещено.");
                 }
             }
         }
@@ -111,7 +111,7 @@ public class BlockBannedItems implements Listener {
 
     HashMap<UUID, Map<Enchantment, Integer>> justGotNerfed = new HashMap<>();
     public void nerfEnchantmentLevel(Map<Enchantment, Integer> enchantments, List<HumanEntity> viewers, ItemStack resultItem, PrepareAnvilEvent event) {
-        StringBuilder nerfedEnchantmentsMessage = new StringBuilder(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Следующие зачарования были ослаблены:\n");
+        StringBuilder nerfedEnchantmentsMessage = new StringBuilder(ChatColor.RED + "[DoubleLife] " + ChatColor.RESET + "Следующие зачарования были ослаблены:\n");
         Map<Enchantment, Integer> nerfedEnchantments = new HashMap<>();
         ItemStack nerfedItem = new ItemStack(resultItem.getType());
 
@@ -147,7 +147,7 @@ public class BlockBannedItems implements Listener {
 
             justGotNerfed.put(viewerUUID, nerfedEnchantments);
             Bukkit.getScheduler().runTaskLater(DoubleLife.plugin, () -> justGotNerfed.remove(viewerUUID), 60);
-            if (!nerfedEnchantmentsMessage.toString().equals(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Следующие зачарования были ослаблены:\n"))
+            if (!nerfedEnchantmentsMessage.toString().equals(ChatColor.RED + "[DoubleLife] " + ChatColor.RESET + "Следующие зачарования были ослаблены:\n"))
                 viewer.sendMessage(String.valueOf(nerfedEnchantmentsMessage));
         }
     }
@@ -190,7 +190,7 @@ public class BlockBannedItems implements Listener {
                 item.setAmount(0);
                 for (HumanEntity viewer : event.getInventory().getViewers()) {
                     Player cheater = (Player) viewer;
-                    cheater.sendMessage(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Шлемы запрещены.");
+                    cheater.sendMessage(ChatColor.RED + "[DoubleLife] " + ChatColor.RESET + "Шлемы запрещены.");
                 }
             }
         }
@@ -231,7 +231,7 @@ public class BlockBannedItems implements Listener {
 
         if (event.getBlock().getType() == Material.ENCHANTING_TABLE) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Вы не можете сломать стол зачарования.");
+            event.getPlayer().sendMessage(ChatColor.RED + "[DoubleLife] " + ChatColor.RESET + "Вы не можете сломать стол зачарования.");
         }
     }
 

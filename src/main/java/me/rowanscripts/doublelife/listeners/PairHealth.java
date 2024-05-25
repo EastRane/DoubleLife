@@ -93,7 +93,7 @@ public class PairHealth implements Listener {
                 int damagerLivesAmount = SaveHandler.getPairLivesAmount(damager);
                 if (damagerLivesAmount > 1) {
                     event.setCancelled(true);
-                    damager.sendMessage(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Вы не можете наносить урон, пока не останетесь с одной жизнью.");
+                    damager.sendMessage(ChatColor.RED + "[DoubleLife] " + ChatColor.RESET + "Вы не можете наносить урон, пока не останетесь с одной жизнью.");
                     return;
                 }
             }

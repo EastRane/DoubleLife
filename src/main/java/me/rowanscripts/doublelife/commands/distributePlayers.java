@@ -31,7 +31,7 @@ public class distributePlayers {
         Player executor = (Player) sender;
         World world = executor.getWorld();
 
-        DoubleLife.plugin.getServer().broadcastMessage(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Распределяем игроков по игровому миру...");
+        DoubleLife.plugin.getServer().broadcastMessage(ChatColor.RED + "[DoubleLife] " + ChatColor.RESET + "Распределяем игроков по игровому миру...");
 
         for (Player participant : Bukkit.getOnlinePlayers()) {
             Location teleportLocation = null;
@@ -42,6 +42,7 @@ public class distributePlayers {
             } while (teleportLocation == null);
             teleportLocation.setY(teleportLocation.getY() + 1);
             participant.teleport(teleportLocation);
+            sender.sendMessage("Игрок " + participant + " размещён по координатам X: " + teleportLocation.getX(), ", Y:" + teleportLocation.getY() + ", Z:" + teleportLocation.getZ());
             if (DoubleLife.plugin.getConfig().getBoolean("misc.set-spawn-point-at-distributed-location"))
                 participant.setBedSpawnLocation(teleportLocation, true);
 
@@ -50,6 +51,7 @@ public class distributePlayers {
             participant.setHealth(20);
             participant.setFoodLevel(20);
         }
+        sender.sendMessage("Распределение успешно завершено.");
 
         return true;
     }

@@ -38,9 +38,13 @@ public class randomizePairs {
         World world = executor.getWorld();
 
         List<UUID> availablePlayers = new ArrayList<>();
-        for(Player player : world.getPlayers())
-            if (!player.hasPermission("doublelife.nopair"))
+        sender.sendMessage("Выбираем пары среди списка игроков:");
+        for(Player player : world.getPlayers()) {
+            if (!player.hasPermission("doublelife.nopair")) {
                 availablePlayers.add(player.getUniqueId());
+                sender.sendMessage(player.getName());
+            }
+        }
 
         if (availablePlayers.size() == 1){
             sender.sendMessage(ChatColor.DARK_RED + "Not enough players!");
@@ -51,7 +55,7 @@ public class randomizePairs {
         availablePlayers.forEach(playerUUID -> {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player != null)
-                player.sendTitle(ChatColor.GREEN + "Твой соулмейт...", null, 10, 100, 10);
+                player.sendTitle(ChatColor.GREEN + "Ваш соулмейт...", null, 10, 100, 10);
         });
 
         Bukkit.getScheduler().runTaskLater(DoubleLife.plugin, () -> {
@@ -73,18 +77,19 @@ public class randomizePairs {
                             playerTwo.sendTitle(ChatColor.GOLD + ChatColor.BOLD.toString() + playerOne.getName(), null, 10, 100, 10);
                             playerTwo.playSound(playerTwo, Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1, 1);
                         } else {
-                            playerOne.sendTitle(ChatColor.GOLD + ChatColor.BOLD.toString() + "????", null, 10, 100, 10);
+                            playerOne.sendTitle(ChatColor.GOLD + ChatColor.BOLD.toString() + "???", null, 10, 100, 10);
                             playerOne.playSound(playerOne, Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1, 1);
-                            playerTwo.sendTitle(ChatColor.GOLD + ChatColor.BOLD.toString() + "????", null, 10, 100, 10);
+                            playerTwo.sendTitle(ChatColor.GOLD + ChatColor.BOLD.toString() + "???", null, 10, 100, 10);
                             playerTwo.playSound(playerTwo, Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1, 1);
                         }
+                        sender.sendMessage("Образована пара: " + playerOne.getName() + " и " + playerTwo.getName());
                     }
                 }
             }
             rolling = false;
         }, 100);
 
-        Bukkit.broadcastMessage(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Выбираем вам соулмейта...");
+        Bukkit.broadcastMessage(ChatColor.RED + "[DoubleLife] " + ChatColor.RESET + "Выбираем вам соулмейта...");
         return true;
     }
 
