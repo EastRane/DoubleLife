@@ -31,7 +31,7 @@ public class distributePlayers {
         Player executor = (Player) sender;
         World world = executor.getWorld();
 
-        DoubleLife.plugin.getServer().broadcastMessage(ChatColor.DARK_GREEN + "Spreading all players out within the world border!");
+        DoubleLife.plugin.getServer().broadcastMessage(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Распределяем игроков по игровому миру...");
 
         for (Player participant : Bukkit.getOnlinePlayers()) {
             Location teleportLocation = null;

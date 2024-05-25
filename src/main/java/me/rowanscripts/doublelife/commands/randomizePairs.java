@@ -51,7 +51,7 @@ public class randomizePairs {
         availablePlayers.forEach(playerUUID -> {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player != null)
-                player.sendTitle(ChatColor.GREEN + "Your soulmate is..", null, 10, 100, 10);
+                player.sendTitle(ChatColor.GREEN + "Твой соулмейт...", null, 10, 100, 10);
         });
 
         Bukkit.getScheduler().runTaskLater(DoubleLife.plugin, () -> {
@@ -84,7 +84,7 @@ public class randomizePairs {
             rolling = false;
         }, 100);
 
-        Bukkit.broadcastMessage(ChatColor.DARK_GREEN + ChatColor.BOLD.toString() + "Randomizing soulmates!");
+        Bukkit.broadcastMessage(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Выбираем вам соулмейта...");
         return true;
     }
 

@@ -31,7 +31,7 @@ public class PairHealth implements Listener {
             Bukkit.getScheduler().runTaskLater(DoubleLife.plugin, () -> {
                 soulmateDiedWhileOffline.remove(playerWhoDied.getUniqueId());
             }, 5);
-            event.setDeathMessage(ChatColor.BOLD + playerWhoDied.getPlayerListName() + " was killed because their soulmate died while they were offline!");
+            event.setDeathMessage(ChatColor.BOLD + playerWhoDied.getPlayerListName() + " был заочно убит, поскольку его соулмейт умер!");
             return;
         }
 
