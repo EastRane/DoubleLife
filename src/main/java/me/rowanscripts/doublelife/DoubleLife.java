@@ -9,8 +9,6 @@ import me.rowanscripts.doublelife.listeners.PairHealth;
 import me.rowanscripts.doublelife.listeners.ShareEffects;
 import me.rowanscripts.doublelife.scoreboard.TeamHandler;
 import me.rowanscripts.doublelife.util.commandArguments;
-import me.rowanscripts.doublelife.util.bStatsCode;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -92,9 +90,6 @@ public final class DoubleLife extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-
-        int pluginId = bStatsCode.get();
-        new Metrics(plugin, pluginId);
 
         ConfigHandler = new ConfigHandler();
         SaveHandler.construct();
