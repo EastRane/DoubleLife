@@ -1,7 +1,6 @@
 package me.rowanscripts.doublelife.listeners;
 
 import me.rowanscripts.doublelife.DoubleLife;
-import me.rowanscripts.doublelife.data.ConfigHandler;
 import me.rowanscripts.doublelife.data.SaveHandler;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -10,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -77,14 +77,27 @@ public class PairHealth implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOW)
-    public void damageEvent(EntityDamageEvent event){
-
+    public void damageEvent(EntityDamageEvent event) {
         if (event.getEntity().getType() != EntityType.PLAYER || event.getCause() == EntityDamageEvent.DamageCause.CUSTOM)
             return;
 
         Player damagedPlayer = (Player) event.getEntity();
         if (soulmateDiedWhileOffline.contains(damagedPlayer.getUniqueId()))
             return;
+
+        // eastrane Если у игрока, наносящего урон, больше одной жизни, ему в нанесении урона ОТКАЗАНО
+        if (event instanceof EntityDamageByEntityEvent) {
+            EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) event;
+            if (entityDamageByEntityEvent.getDamager().getType() == EntityType.PLAYER) {
+                Player damager = (Player) entityDamageByEntityEvent.getDamager();
+                int damagerLivesAmount = SaveHandler.getPairLivesAmount(damager);
+                if (damagerLivesAmount > 1) {
+                    event.setCancelled(true);
+                    damager.sendMessage(ChatColor.RED + "[DoubleLife]" + ChatColor.RESET + "Вы не можете наносить урон, пока не останетесь с одной жизнью.");
+                    return;
+                }
+            }
+        }
 
         double finalDamage = event.getFinalDamage();
         double currentHealth = SaveHandler.getPairHealth(damagedPlayer);
@@ -103,7 +116,6 @@ public class PairHealth implements Listener {
             soulmate.damage(0.01);
             soulmate.setHealth(healthToSet);
         }
-
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
